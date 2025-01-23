@@ -1,0 +1,12 @@
+{
+  "greeting": "Hello",
+  "welcome": "Welcome to our app",
+  "buttons": {
+    "submit": "Submit",
+    "cancel": "Cancel"
+  },
+  "hero": {
+    "title": "Rent a car with just a few clicks",
+    "subtitle": "Unlock 24/7 with your phone, and go!"
+  }
+}

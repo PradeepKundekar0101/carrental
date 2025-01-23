@@ -1,17 +1,20 @@
-import React, { useState, useEffect } from 'react';
-import { ChevronUp, ChevronDown, User2, Gift, LogOut } from 'lucide-react';
-import { useNavigate, Link } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { ChevronUp, ChevronDown, User2, Gift, LogOut } from "lucide-react";
+import { useNavigate, Link } from "react-router-dom";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
+import { useTranslation } from "react-i18next";
+import LanguageSwitcher from "./LangSwitcher";
 
 const Navbar: React.FC = () => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   useEffect(() => {
     // const loginStatus = localStorage.getItem('isLogin') === 'true';
@@ -21,17 +24,18 @@ const Navbar: React.FC = () => {
 
   useEffect(() => {
     if (isOpen) {
-      const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+      const scrollbarWidth =
+        window.innerWidth - document.documentElement.clientWidth;
       document.body.style.paddingRight = `${scrollbarWidth}px`;
     } else {
-      document.body.style.paddingRight = '0px';
+      document.body.style.paddingRight = "0px";
     }
   }, [isOpen]);
 
   const handleLogout = () => {
-    localStorage.removeItem('isLogin');
+    localStorage.removeItem("isLogin");
     setIsLoggedIn(false);
-    navigate('/login');
+    navigate("/login");
     setIsOpen(false);
   };
 
@@ -52,12 +56,17 @@ const Navbar: React.FC = () => {
       <nav className="w-full h-16 fixed top-0 z-50 backdrop-blur-xl">
         <div className="max-w-7xl mx-auto px-4 h-full flex items-center justify-between">
           <Link to="/" className="text-primary text-2xl font-bold">
-            CarBooking
+            {t("greeting")}
           </Link>
 
           <div className="flex items-center space-x-4">
+            <LanguageSwitcher />
             {isLoggedIn ? (
-              <DropdownMenu open={isOpen} onOpenChange={setIsOpen} modal={false}>
+              <DropdownMenu
+                open={isOpen}
+                onOpenChange={setIsOpen}
+                modal={false}
+              >
                 <DropdownMenuTrigger asChild>
                   <Button
                     variant="outline"
@@ -66,7 +75,9 @@ const Navbar: React.FC = () => {
                     <div className="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center">
                       <User2 className="w-5 h-5 text-gray-600" />
                     </div>
-                    <span className="text-primary font-medium">Collaborators</span>
+                    <span className="text-primary font-medium">
+                      Collaborators
+                    </span>
                     {isOpen ? (
                       <ChevronUp className="w-4 h-4 text-primary transition-transform duration-200" />
                     ) : (
@@ -84,9 +95,13 @@ const Navbar: React.FC = () => {
                       <User2 className="w-6 h-6 text-gray-600" />
                     </div>
                     <div className="flex flex-col">
-                      <span className="font-semibold text-[#1f0a37]">Collaborators Lab</span>
+                      <span className="font-semibold text-[#1f0a37]">
+                        Collaborators Lab
+                      </span>
                       <button
-                        onClick={() => handleNavigation('/dashboard/account/edit-profile')}
+                        onClick={() =>
+                          handleNavigation("/dashboard/account/edit-profile")
+                        }
                         className="text-sm text-primary hover:underline text-left"
                       >
                         Edit your account
@@ -97,17 +112,19 @@ const Navbar: React.FC = () => {
                   <div className="py-2">
                     <MenuItem
                       label="Verify Your Profile"
-                      onClick={() => handleNavigation('/dashboard/account/verify-profile')}
-                      className='border-b-2 border-gray-200'
+                      onClick={() =>
+                        handleNavigation("/dashboard/account/verify-profile")
+                      }
+                      className="border-b-2 border-gray-200"
                     />
                     <MenuItem
                       label="Rentals"
-                      onClick={() => handleNavigation('/dashboard/rentals')}
-                      className='border-b-2 border-gray-200'
+                      onClick={() => handleNavigation("/dashboard/rentals")}
+                      className="border-b-2 border-gray-200"
                     />
                     <MenuItem
                       label="Payments"
-                      onClick={() => handleNavigation('/dashboard/payments')}
+                      onClick={() => handleNavigation("/dashboard/payments")}
                     />
                   </div>
 
@@ -115,7 +132,9 @@ const Navbar: React.FC = () => {
                     <MenuItem
                       label="Get $20 credit"
                       icon={<Gift className="w-5 h-5" />}
-                      onClick={() => handleNavigation('/dashboard/account/get-credit')}
+                      onClick={() =>
+                        handleNavigation("/dashboard/account/get-credit")
+                      }
                       className="hover:bg-gray-100 border-b-2 border-gray-200"
                     />
                     <MenuItem
@@ -129,9 +148,21 @@ const Navbar: React.FC = () => {
               </DropdownMenu>
             ) : (
               <>
-                <Link to="/" className="text-gray-600 hover:text-gray-900">Home</Link>
-                <Link to="/enterprise" className="text-gray-600 hover:text-gray-900">Enterprise</Link>
-                <Link to="/contact" className="text-gray-600 hover:text-gray-900">Contact</Link>
+                <Link to="/" className="text-gray-600 hover:text-gray-900">
+                  Home
+                </Link>
+                <Link
+                  to="/enterprise"
+                  className="text-gray-600 hover:text-gray-900"
+                >
+                  Enterprise
+                </Link>
+                <Link
+                  to="/contact"
+                  className="text-gray-600 hover:text-gray-900"
+                >
+                  Contact
+                </Link>
               </>
             )}
 
@@ -139,7 +170,7 @@ const Navbar: React.FC = () => {
               Questions?
             </Button>
             <Button
-              onClick={() => handleNavigation('/searchCar')}
+              onClick={() => handleNavigation("/searchCar")}
               className="bg-white/20 text-primary border-2 border-primary hover:bg-primary hover:text-white rounded-full px-6"
             >
               Rent out your car
@@ -158,13 +189,18 @@ interface MenuItemProps {
   onClick?: () => void;
 }
 
-const MenuItem: React.FC<MenuItemProps> = ({ label, icon, className, onClick }) => (
+const MenuItem: React.FC<MenuItemProps> = ({
+  label,
+  icon,
+  className,
+  onClick,
+}) => (
   <div
     onClick={onClick}
     className={`
       flex items-center justify-between px-4 py-3
       hover:bg-gray-50 cursor-pointer 
-      ${className || ''}
+      ${className || ""}
     `}
   >
     <span className="text-[#1f0a37]">{label}</span>

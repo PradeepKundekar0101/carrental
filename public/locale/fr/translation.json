@@ -1,0 +1,12 @@
+{
+  "greeting": "Bonjour",
+  "welcome": "Bienvenue dans notre application",
+  "buttons": {
+    "submit": "Soumettre",
+    "cancel": "Annuler"
+  },
+  "hero": {
+    "title": "Louez une voiture en quelques clics",
+    "subtitle": "Débloquez 24/7 avec votre téléphone et partez !"
+  }
+}
